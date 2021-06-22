@@ -49,4 +49,15 @@ public class CardInfo {
     public void setCvc(String cvc) {
         this.cvc = cvc;
     }
+
+    @Override
+    public String toString() {
+        return "CardInfo{" +
+                "number='" + number + '\'' +
+                ", month='" + month + '\'' +
+                ", year='" + year + '\'' +
+                ", owner='" + owner + '\'' +
+                ", cvc='" + cvc + '\'' +
+                '}';
+    }
 }

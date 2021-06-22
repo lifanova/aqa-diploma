@@ -10,6 +10,7 @@ import ru.netology.web.data.CardInfo;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -39,7 +40,8 @@ public class PaymentPage {
         cvcField.setValue(cardInfo.getCvc());
         System.out.println(cvcField.getValue());
 
-        form.find("button").click();
+        SelenideElement button = $("form.form button");
+        button.click();
     }
 
     public void getSuccess() {
@@ -48,7 +50,9 @@ public class PaymentPage {
         System.out.println("[getSuccess]: " + notificationSuccess.getCssValue("visibility") );
 
         Duration timeout = Duration.ofSeconds(15);
-        $(".notification_status_ok").shouldBe(exist, timeout);
+        $(".notification_status_ok").shouldBe(visible, timeout);
+        //$(".notification_status_ok").shouldBe(visible);
+
     }
 
     public void getError() {
