@@ -9,12 +9,27 @@ public class DataGenerator {
 
     public static CardInfo getCorrectCardInfo() {
         CardInfo cardInfo = new CardInfo();
-        cardInfo.setNumber("4444 4444 4444 4441");
-        cardInfo.setMonth("01");
-        cardInfo.setYear("22");
-        cardInfo.setOwner("Ivanov Ivan");
-        cardInfo.setCvc("923");
+        cardInfo.setNumber(getApprovedCardNumber());
 
+        cardInfo.setMonth(getMonth());
+        cardInfo.setYear(getYear());
+
+        cardInfo.setOwner(getName());
+
+        cardInfo.setCvc(getCvc());
+
+        return cardInfo;
+    }
+
+    public static CardInfo getIncorrectCardInfo() {
+        CardInfo cardInfo = new CardInfo();
+        cardInfo.setNumber(getDeclinedCardNumber());
+        cardInfo.setMonth(getMonth());
+        cardInfo.setYear(getYear());
+
+        cardInfo.setOwner(getName());
+
+        cardInfo.setCvc(getCvc());
         return cardInfo;
     }
 
@@ -39,11 +54,11 @@ public class DataGenerator {
 
 
     public static String getApprovedCardNumber() {
-        return "4444444444444441";
+        return "4444 4444 4444 4441";
     }
 
     public static String getDeclinedCardNumber() {
-        return "4444444444444442";
+        return "4444 4444 4444 4442";
     }
 
     public static String getMonth() {
@@ -78,34 +93,5 @@ public class DataGenerator {
         return String.format("%d%d%d" , a, b, c);
     }
 
-    public static String currentYear() {
-        LocalDate currentDate = LocalDate.now();
-        int year = currentDate.getYear() - 2000;
-        return Integer.toString(year);
-    }
 
-    public static String pastYear() {
-        Random random = new Random();
-        int i = random.nextInt(18) + 1;
-        return String.format("%02d", i);
-    }
-
-    public static String currentMonth() {
-        LocalDate currentDate = LocalDate.now();
-        int month = currentDate.getMonthValue();
-        return String.format("%02d", month);
-    }
-
-    public static String pastMonth() {
-        LocalDate currentDate = LocalDate.now();
-        int month = currentDate.getMonthValue() - 1;
-        return String.format("%02d", month);
-    }
-
-    public static String invalidCardNumber() {
-        Faker faker = new Faker();
-        Random random = new Random();
-        int i = random.nextInt(15) + 1;
-        return Long.toString(faker.number().randomNumber(i, true));
-    }
 }

@@ -22,7 +22,7 @@
 `java -jar artifacts\aqa-shop.jar`
 
 4. Запустить автотесты  
-`gradleview test --info -Dselenide.headless=true`
+`gradlew test --info -Dselenide.headless=true`
 
 5. После окончания тестирования остановить контейнер  
 `docker-compose -f docker-compose-postgres.yml down`

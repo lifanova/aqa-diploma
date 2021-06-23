@@ -1,30 +1,26 @@
 package ru.netology.web.page;
 
 import com.codeborne.selenide.Condition;
-
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
-
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.CardInfo;
 
 import java.time.Duration;
-import java.util.List;
 
-import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class PaymentPage {
+public class CreditPage {
     private SelenideElement form = $("form.form");
 
-    public PaymentPage() {
+    public CreditPage() {
         form.shouldBe(Condition.visible);
     }
 
     public void fillAndSubmit(CardInfo cardInfo) {
         SelenideElement numberField = $$("form.form input").get(0);
         numberField.setValue(cardInfo.getNumber());
+        System.out.println("[fillAndSubmit]: " + cardInfo.getNumber());
         System.out.println("[fillAndSubmit]: " + numberField.getValue());
 
         SelenideElement monthField = $$("form.form input").get(1);
@@ -51,28 +47,10 @@ public class PaymentPage {
 
         Duration timeout = Duration.ofSeconds(15);
         $(".notification_status_ok").shouldBe(visible, timeout);
-        //$(".notification_status_ok").shouldBe(visible);
-
     }
 
     public void getError() {
         Duration timeout = Duration.ofSeconds(15);
         $(".notification_status_error").shouldBe(visible, timeout);
-    }
-
-    public void getValidationMessage() {
-        // Неверный формат или Поле обязательно для заполнению
-        $(".input__sub").shouldBe(visible);
-    }
-
-    public void getValidationMessageList() {
-        // Сообщений об ошибках валидации должно быть столько же, сколько и полей формы
-        int size = $$("form.form input").size();
-        System.out.println(size);
-
-        List<SelenideElement> items = $$("form.form input");
-        for (SelenideElement item : items) {
-            item.parent().parent().find(".input__sub").shouldBe(visible);
-        }
     }
 }
