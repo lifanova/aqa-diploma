@@ -1,17 +1,13 @@
 package ru.netology.web.page;
 
 import com.codeborne.selenide.Condition;
-
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
-
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.CardInfo;
 
 import java.time.Duration;
 import java.util.List;
 
-import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -20,6 +16,7 @@ public class PaymentPage {
 
     public PaymentPage() {
         form.shouldBe(Condition.visible);
+        //TODO: проверить заголовки или адреса, куда будут уходить post-запросы
     }
 
     public void fillAndSubmit(CardInfo cardInfo) {
@@ -45,14 +42,8 @@ public class PaymentPage {
     }
 
     public void getSuccess() {
-        SelenideElement notificationSuccess = $(".notification_status_ok ");
-
-        System.out.println("[getSuccess]: " + notificationSuccess.getCssValue("visibility"));
-
         Duration timeout = Duration.ofSeconds(15);
         $(".notification_status_ok").shouldBe(visible, timeout);
-        //$(".notification_status_ok").shouldBe(visible);
-
     }
 
     public void getError() {

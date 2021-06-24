@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.CardInfo;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -41,10 +42,6 @@ public class CreditPage {
     }
 
     public void getSuccess() {
-        SelenideElement notificationSuccess = $(".notification_status_ok ");
-
-        System.out.println("[getSuccess]: " + notificationSuccess.getCssValue("visibility"));
-
         Duration timeout = Duration.ofSeconds(15);
         $(".notification_status_ok").shouldBe(visible, timeout);
     }
@@ -52,5 +49,16 @@ public class CreditPage {
     public void getError() {
         Duration timeout = Duration.ofSeconds(15);
         $(".notification_status_error").shouldBe(visible, timeout);
+    }
+
+    public void getValidationMessageList() {
+        // Сообщений об ошибках валидации должно быть столько же, сколько и полей формы
+        int size = $$("form.form input").size();
+        System.out.println(size);
+
+        List<SelenideElement> items = $$("form.form input");
+        for (SelenideElement item : items) {
+            item.parent().parent().find(".input__sub").shouldBe(visible);
+        }
     }
 }
