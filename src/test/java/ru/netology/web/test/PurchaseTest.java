@@ -90,7 +90,7 @@ public class PurchaseTest {
         paymentPage.fillAndSubmit(cardInfo);
 
         //assertion: 1. появится сообщение об ошибке
-        paymentPage.getSuccess();
+        paymentPage.getError();
     }
 
     @DisplayName("6. Отправка формы оплаты с незаполненными полями")
