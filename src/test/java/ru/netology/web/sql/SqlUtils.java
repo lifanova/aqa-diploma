@@ -7,25 +7,25 @@ import java.sql.*;
  */
 public class SqlUtils {
 
-    public static boolean checkApprovedPayment(){
+    public static boolean checkApprovedPayment() {
         final String sql = "SELECT p.*, o.* FROM payment_entity AS p LEFT JOIN order_entity AS o ON p.transaction_id = o.payment_id WHERE p.status == 'APPROVED'";
 
         return executeQuery(sql);
     }
 
-    public static boolean checkDeclinedPayment(){
+    public static boolean checkDeclinedPayment() {
         final String sql = "SELECT p.*, o.* FROM payment_entity AS p LEFT JOIN order_entity AS o ON p.transaction_id = o.payment_id WHERE p.status == 'DECLINED'";
 
         return executeQuery(sql);
     }
 
-    public static boolean checkApprovedCredit(){
+    public static boolean checkApprovedCredit() {
         final String sql = "SELECT c.*, o.* FROM credit_request_entity AS c LEFT JOIN order_entity AS o ON c.id = o.credit_id WHERE c.status == 'APPROVED'";
 
         return executeQuery(sql);
     }
 
-    public static boolean checkDeclinedCredit(){
+    public static boolean checkDeclinedCredit() {
         final String sql = "SELECT c.*, o.* FROM credit_request_entity AS c LEFT JOIN order_entity AS o ON c.id = o.credit_id WHERE c.status == 'DECLINED'";
 
         return executeQuery(sql);
@@ -53,7 +53,8 @@ public class SqlUtils {
     }
 
     public static String getUrl() {
-        return "jdbc:postgresql://192.168.99.100:5432/app";
+        System.out.println("[getUrl]: " + System.getProperty("datasource.url"));
+        return System.getProperty("datasource.url");
     }
 
     public static String getPostgresUrl() {
