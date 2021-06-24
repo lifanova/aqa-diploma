@@ -11,6 +11,9 @@ import ru.netology.web.data.DataGenerator;
 import ru.netology.web.page.CreditPage;
 import ru.netology.web.page.MainPage;
 import ru.netology.web.page.PaymentPage;
+import ru.netology.web.sql.SqlUtils;
+
+import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -74,8 +77,10 @@ public class PurchaseTest {
         //act: заполняем данными и отправляем данные на сервер
         paymentPage.fillAndSubmit(cardInfo);
 
-        //assertion: 1. появится сообщение об успешной отправке, 2. в базе появится запись
+        //assertion: 1. появится сообщение об успешной отправке,
+        // 2. в базе появится запись
         paymentPage.getSuccess();
+        SqlUtils.checkApprovedPayment();
     }
 
     @DisplayName("5. Отклоненная банком оплата по карте")
@@ -91,6 +96,7 @@ public class PurchaseTest {
 
         //assertion: 1. появится сообщение об ошибке
         paymentPage.getError();
+        SqlUtils.checkDeclinedPayment();
     }
 
     @DisplayName("6. Отправка формы оплаты с незаполненными полями")
@@ -117,6 +123,7 @@ public class PurchaseTest {
 
         //assertion: 1. появится сообщение об успешной отправке, 2. в базе появится запись
         creditPage.getSuccess();
+        SqlUtils.checkApprovedCredit();
     }
 
     @DisplayName("8. Отклоненная банком покупка в кредит")
@@ -132,6 +139,7 @@ public class PurchaseTest {
 
         //assertion: 1. появится сообщение об ошибке
         creditPage.getSuccess();
+        SqlUtils.checkDeclinedCredit();
     }
 
     @DisplayName("9. Отправка формы кредита с незаполненными полями")
@@ -223,5 +231,14 @@ public class PurchaseTest {
 
         //assertion: 1. под полем ввода появится сообщение об ошибке
         paymentPage.getValidationMessage();
+    }
+
+    @AfterAll
+    static void cleanAllData() {
+        try {
+            SqlUtils.cleanData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
