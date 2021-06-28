@@ -249,6 +249,38 @@ public class PurchaseTest {
         paymentPage.getValidationMessage();
     }
 
+    @DisplayName("16. Проверка поля \"Месяц\"")
+    @Test
+    public void shouldCheckIncorrectMonth() {
+        // arrange: открываем страницу, получаем тестовые данные
+        CardInfo cardInfo = DataGenerator.getCorrectCardInfo();
+        cardInfo.setMonth("00");
+
+        PaymentPage paymentPage = getPaymentForm();
+
+        //act: заполняем данными и отправляем данные на сервер
+        paymentPage.fillAndSubmit(cardInfo);
+
+        //assertion: 1. под полем ввода появится сообщение об ошибке
+        paymentPage.getValidationMessage();
+    }
+
+    @DisplayName("17. Проверка поля \"CVC/CVV\"")
+    @Test
+    public void shouldCheckIncorrectCvc() {
+        // arrange: открываем страницу, получаем тестовые данные
+        CardInfo cardInfo = DataGenerator.getCorrectCardInfo();
+        cardInfo.setCvc("000");
+
+        PaymentPage paymentPage = getPaymentForm();
+
+        //act: заполняем данными и отправляем данные на сервер
+        paymentPage.fillAndSubmit(cardInfo);
+
+        //assertion: 1. под полем ввода появится сообщение об ошибке
+        paymentPage.getValidationMessage();
+    }
+
     @AfterAll
     static void cleanAllData() {
         try {
