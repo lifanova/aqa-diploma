@@ -233,6 +233,22 @@ public class PurchaseTest {
         paymentPage.getValidationMessage();
     }
 
+    @DisplayName("15. Проверка поля \"Номер карты\"")
+    @Test
+    public void shouldCheckIncorrectNumber() {
+        // arrange: открываем страницу, получаем тестовые данные
+        CardInfo cardInfo = DataGenerator.getCorrectCardInfo();
+        cardInfo.setNumber("0000 1111 0000 0111");
+
+        PaymentPage paymentPage = getPaymentForm();
+
+        //act: заполняем данными и отправляем данные на сервер
+        paymentPage.fillAndSubmit(cardInfo);
+
+        //assertion: 1. под полем ввода появится сообщение об ошибке
+        paymentPage.getValidationMessage();
+    }
+
     @AfterAll
     static void cleanAllData() {
         try {
