@@ -18,18 +18,20 @@
 Успешных: 12 (70%)  
 Неуспешных: 5 (30%)  
 
-
-Отчет Gradle:  
+**Отчет Gradle:**  
 ![](img/report-gradle.png)
 
-Отчет Allure:  
+**Отчет Allure:**  
 ![](img/report-allure.png)  
+
+Успешные и неуспешные тесты:  
 ![](img/report-allure-suites.png)
 
 
 
 **Общие рекомендации**  
-**Найденные баги**  
+
+**Найденные баги:**  
 
 [1. Отсутствует валидация поля "Владелец"](https://github.com/lifanova/aqa-diploma/issues/1)  
 
