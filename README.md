@@ -35,7 +35,8 @@ a) в случае Postgres:
 `docker-compose -f docker-compose-postgres.yml down`
 
 **Генерация отчетов Allure**  
-`gradlew clean test allureReport`  
+`gradlew allureReport`  
+или  
 `gradlew allureServe`
 
 
